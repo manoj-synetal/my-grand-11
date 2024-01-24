@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --------------- USER INFO --------------- //
+
+model User {
+  id           Int            @id @default(autoincrement())
+  name         String?
+  phone        String         @unique
+  email        String?
+  avatar       String?
+  referalId    String         @unique
+  referBy      String?
+  status       Boolean        @default(true)
+  wallet       Wallet?
+  role         String         @default("user")
+  Transaction  Transaction[]
+  Notification Notification[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Wallet {
+  userId        Int      @id
+  balance       Int      @default(0)
+  referalIncome Int      @default(0)
+  winnings      Int      @default(0)
+  cashbacks     Int      @default(0)
+  user          User     @relation(fields: [userId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Otp {
+  id        Int      @id @default(autoincrement())
+  phone     String   @unique
+  otp       String
+  createdAt DateTime @default(now())
+}
+
+// --------------- GAME INFO --------------- //
+
+model Game {
+  id            Int      @id @default(autoincrement())
+  name          String?  @unique
+  image         String?
+  banner        String?
+  adRewardCoins Int?
+  status        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// --------------- TRANSACTION INFO --------------- //
+model Transaction {
+  userId    Int
+  amount    Int       @default(0)
+  txnId     String    @unique
+  txnName   txnName
+  txnType   String
+  txnStatus txnStatus
+  txnDesc   String
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum txnName {
+  WALLET
+  CONTEST
+}
+
+enum txnStatus {
+  SUCCESS
+  PENDING
+  FAILURE
+}
+
+// --------------- TEAMS --------------- //
+
+model Team {
+  id           Int      @id @default(autoincrement())
+  userId       Int?
+  matchId      Int?
+  name         String
+  logo         String?
+  participants String[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// --------------- NOTIFICATION INFO --------------- //
+
+model Notification {
+  id         Int      @id @default(autoincrement())
+  receiverId Int?
+  title      String
+  body       String
+  user       User?    @relation(fields: [receiverId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+// --------------- ADMIN INFO --------------- //
+
+model Admin {
+  id        Int           @id @default(autoincrement())
+  name      String?
+  email     String?       @unique
+  avatar    String?
+  password  String?
+  status    Boolean       @default(true)
+  role      String        @default("admin")
+  wallet    AdminWallet[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model AdminWallet {
+  adminId   Int      @id
+  balance   Int      @default(0)
+  admin     Admin    @relation(fields: [adminId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AppSetting {
+  appId         Int      @id @default(0)
+  name          String?  @default("MyGrand11")
+  referalAmount Int      @default(50)
+  howToPlay     String?
+  logo          String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

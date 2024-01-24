@@ -1,0 +1,8 @@
+{"level":"error","message":"Wrong credentials."}
+{"level":"error","message":"\nInvalid `prisma.notification.create()` invocation in\nC:\\Users\\ManojKushwaha\\Desktop\\Projects\\mygrand11\\controllers\\notification.ts:45:46\n\n  42 export const notificationPush = expressAsyncHandler(\n  43   async (req: Request, res: Response) => {\n  44     const { title, body } = req.body;\n→ 45     const result = await prisma.notification.create(\nForeign key constraint failed on the field: `Notification_receiverId_fkey (index)`"}
+{"level":"error","message":"\nInvalid `prisma.notification.create()` invocation in\nC:\\Users\\ManojKushwaha\\Desktop\\Projects\\mygrand11\\controllers\\notification.ts:45:46\n\n  42 export const notificationPush = expressAsyncHandler(\n  43   async (req: Request, res: Response) => {\n  44     const { title, body } = req.body;\n→ 45     const result = await prisma.notification.create(\nForeign key constraint failed on the field: `Notification_receiverId_fkey (index)`"}
+{"level":"error","message":"\nInvalid `prisma.notification.create()` invocation in\nC:\\Users\\ManojKushwaha\\Desktop\\Projects\\mygrand11\\controllers\\notification.ts:45:46\n\n  42 export const notificationPush = expressAsyncHandler(\n  43   async (req: Request, res: Response) => {\n  44     const { title, body } = req.body;\n→ 45     const result = await prisma.notification.create(\nForeign key constraint failed on the field: `Notification_receiverId_fkey (index)`"}
+{"level":"error","message":"Please enter token."}
+{"level":"error","message":"Wrong credentials."}
+{"level":"error","message":"Please fill all fields."}
+{"level":"error","message":"Please enter token."}

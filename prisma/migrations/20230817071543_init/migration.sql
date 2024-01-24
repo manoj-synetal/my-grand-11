@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Wallet" ADD COLUMN     "cashbacks" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "winnings" INTEGER NOT NULL DEFAULT 0;
